@@ -9,7 +9,7 @@ bot = Bot(command_prefix='-')
 @bot.event
 async def on_ready():
     print("I'm ready.")
-    target_channel
+    global target_channel
     target_channel = bot.get_channel(636689612659490816)
     await target_channel.send("I'm ready.")
 
