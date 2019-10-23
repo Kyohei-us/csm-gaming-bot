@@ -19,4 +19,9 @@ async def on_message(message):
         channel = message.channel
         await channel.send("Hello i'm finally working")
 
+@bot.event
+async def on_message_delete(message):
+    channel = bot.get_channel(636700968762998784)
+    await channel.send(message.content + "This message is deleted right now.")
+
 bot.run(os.environ.get('BOT_TOKEN'))
