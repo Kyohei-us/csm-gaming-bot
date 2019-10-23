@@ -2,6 +2,7 @@ import os
 import asyncio
 import discord
 from discord.ext.commands import Bot
+import datetime
 
 bot = Bot(command_prefix='-')
 
@@ -23,6 +24,7 @@ async def on_message(message):
 async def on_message_delete(message):
     #log to logs channel
     channel = bot.get_channel(636700968762998784)
-    await channel.send(message.author.name + " : " + message.content)
+    timelog = datetime.datetime.now()
+    await channel.send("{} : {} : {}".format(timelog, message.author.name, message.content))
 
 bot.run(os.environ.get('BOT_TOKEN'))
