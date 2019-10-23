@@ -17,6 +17,6 @@ async def on_ready():
 async def on_message(message):
     if message.content == 'hello':
         channel = message.channel
-        channel.send("Hello i'm finally working")
+        await channel.send("Hello i'm finally working")
 
 bot.run(os.environ.get('BOT_TOKEN'))
