@@ -23,6 +23,6 @@ async def on_message(message):
 async def on_message_delete(message):
     #log to logs channel
     channel = bot.get_channel(636700968762998784)
-    await channel.send(message.author + " : " + message.content)
+    await channel.send(message.author.name + " : " + message.content)
 
 bot.run(os.environ.get('BOT_TOKEN'))
