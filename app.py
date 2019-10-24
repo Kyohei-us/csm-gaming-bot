@@ -11,7 +11,7 @@ bot = Bot(command_prefix='-')
 async def on_ready():
     print("I'm ready.")
     #general channel
-    target_channel = bot.get_channel(636689612659490816)
+    target_channel = bot.get_channel(os.environ.get('GENERAL_CHANNEL'))
     await target_channel.send("I'm ready.")
 
 @bot.event
@@ -23,7 +23,7 @@ async def on_message(message):
 @bot.event
 async def on_message_delete(message):
     #log to logs channel
-    channel = bot.get_channel(636700968762998784)
+    channel = bot.get_channel(os.environ.get('LOGS_CHANNEL'))
     timelog = datetime.datetime.now()
     await channel.send("{} : {} : {}".format(timelog, message.author.name, message.content))
 
