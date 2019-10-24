@@ -4,3 +4,4 @@ aiohttp==3.5.4
 websocket-client==0.56.0
 websockets==6.0
 discord.py==1.2.3
+pytz==2019.1
