@@ -20,6 +20,7 @@ async def on_message(message):
     if message.content.lower() == 'hello':
         channel = message.channel
         await channel.send("Hello i'm a bot.")
+        await bot.process_commands(message)
 
 @bot.command(name='addrole')
 async def addrole(ctx):
