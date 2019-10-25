@@ -13,7 +13,7 @@ async def on_ready():
     print("I'm ready.")
     #general channel
     target_channel = bot.get_channel(int(os.environ.get('GENERAL_CHANNEL')))
-    await target_channel.send("I'm ready.")
+    await target_channel.send("I'm online.")
 
 @bot.event
 async def on_message(message):
@@ -22,15 +22,15 @@ async def on_message(message):
         await channel.send("Hello i'm a bot.")
     await bot.process_commands(message)
 
-@bot.command(name='addrole')
-async def addrole(ctx):
-    guild = ctx.message.guild
-    role = discord.utils.get(guild.roles, name="admin")
-    try:
-        await ctx.message.author.add_roles(role)
-    except Exception as e:
-        print(e)
-        await ctx.message.channel.send("You failed to add role im sorry.")
+# @bot.command(name='addrole')
+# async def addrole(ctx):
+#     guild = ctx.message.guild
+#     role = discord.utils.get(guild.roles, name="admin")
+#     try:
+#         await ctx.message.author.add_roles(role)
+#     except Exception as e:
+#         print(e)
+#         await ctx.message.channel.send("You failed to add role im sorry.")
 
 @bot.event
 async def on_message_delete(message):
