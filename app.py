@@ -33,6 +33,21 @@ async def on_message(message):
 #         await ctx.message.channel.send("You failed to add role im sorry.")
 
 @bot.event
+async def on_member_join(member):
+    guild = member.guild
+    role = discord.utils.get(guild.roles, name="aggin")
+    try:
+        await member.add_roles(role)
+    except Exception as e:
+        print(e)
+        channel = bot.get_channel(636689612659490816)
+        await channel.send("You failed to add role im sorry.")
+    else:
+        channel = bot.get_channel(636689612659490816)
+        await channel.send("You get this role :  aggin")
+
+
+@bot.event
 async def on_message_delete(message):
     #log to logs channel
     channel = bot.get_channel(int(os.environ.get('LOGS_CHANNEL')))
