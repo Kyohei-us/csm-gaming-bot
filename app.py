@@ -15,12 +15,12 @@ async def on_ready():
     target_channel = bot.get_channel(int(os.environ.get('GENERAL_CHANNEL')))
     await target_channel.send("I'm online.")
 
-@bot.event
-async def on_message(message):
-    if message.content.lower() == 'hello':
-        channel = message.channel
-        await channel.send("Hello i'm a bot.")
-    await bot.process_commands(message)
+# @bot.event
+# async def on_message(message):
+#     if message.content.lower() == 'hello':
+#         channel = message.channel
+#         await channel.send("Hello i'm a bot.")
+#     await bot.process_commands(message)
 
 # @bot.command(name='addrole')
 # async def addrole(ctx):
