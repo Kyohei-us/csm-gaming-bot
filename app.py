@@ -21,14 +21,18 @@ async def role(ctx):
 
     for member in guild.members:
         for role in member.roles:
-            if role.name == "───── ᴄᴏᴍᴘᴇᴛɪᴛɪᴠᴇ/ᴄᴀꜱᴜᴀʟ  ─────":
+            role1 = discord.utils.get(guild.roles, id=622296223772180480)
+            if role == role1:
                 await member.remove_roles(role)
-            if role.name == "───── ᴄᴏᴍᴘᴇᴛɪᴛɪᴠᴇ ɢᴀᴍᴇꜱ ──────":
+            role2 = discord.utils.get(guild.roles, id=622298746331332620)
+            if role == role2:
                 await member.remove_roles(role)
-            if role.name == "─────── ᴄᴀꜱᴜᴀʟ ɢᴀᴍᴇꜱ ───────":
+            role3 = discord.utils.get(guild.roles, id=622298861934739467)
+            if role == role3:
                 await member.remove_roles(role)
             # role_games = 
             # await member.add_roles()
+
 
 # @bot.event
 # async def on_message(message):
