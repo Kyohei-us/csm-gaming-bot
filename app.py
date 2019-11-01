@@ -15,6 +15,21 @@ async def on_ready():
     target_channel = bot.get_channel(int(os.environ.get('GENERAL_CHANNEL')))
     await target_channel.send("I'm online.")
 
+@bot.command(name='roleShift')
+async def role(ctx):
+    guild = ctx.message.guild
+
+    for member in guild.members:
+        for role in member.roles:
+            if role.name == "───── ᴄᴏᴍᴘᴇᴛɪᴛɪᴠᴇ/ᴄᴀꜱᴜᴀʟ  ─────":
+                await member.remove_roles(role)
+            if role.name == "───── ᴄᴏᴍᴘᴇᴛɪᴛɪᴠᴇ ɢᴀᴍᴇꜱ ──────":
+                await member.remove_roles(role)
+            if role.name == "─────── ᴄᴀꜱᴜᴀʟ ɢᴀᴍᴇꜱ ───────":
+                await member.remove_roles(role)
+            # role_games = 
+            # await member.add_roles()
+
 # @bot.event
 # async def on_message(message):
 #     if message.content.lower() == 'hello':
