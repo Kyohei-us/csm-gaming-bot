@@ -76,6 +76,38 @@ async def on_message_delete(message):
     timezone = utc_time.astimezone(pytz.timezone("America/Los_Angeles"))
     #formatting time
     timelog = timezone.strftime("%Y,%B,%d,%a,%X")
-    await channel.send("{} : {} : {}".format(timelog, message.author.name, message.content))
+
+    name_of_channel_message_was_in = message.channel.name
+
+    embed = discord.Embed(
+        title=message.author.name,
+        description=message.content,
+        color=discord.Colour.gold()
+    )
+    embed.add_field(name="Time sent", value=timelog, inline=False)
+    embed.add_field(name="Channel sent in", value=name_of_channel_message_was_in, inline=False)
+    try:
+        imageIdAttached = message.attachments[0].id
+    except Exception as e:
+        print(e)
+    else:
+        imageChannel = bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL")))#image repost channel
+        messages = await imageChannel.history(limit=1000).flatten()
+        for a in messages:
+            if str(imageIdAttached) in a.content:
+                print("This is image id : \n{} and this is a.content : \n{}".format(imageIdAttached, a.content))
+                try:
+                    messageSplitBySpaceList = a.content.split(" ")
+                except Exception as e:
+                    print(e)
+                else:
+                    print("There will be an url of Image deleted below.")
+                    embed.set_image(url=messageSplitBySpaceList[0])
+
+
+    await channel.send(embed=embed)
+
+
+    #await channel.send("{} : {} : {}".format(timelog, message.author.name, message.content))
 
 bot.run(os.environ.get('BOT_TOKEN'))
