@@ -34,12 +34,22 @@ async def role(ctx):
             # await member.add_roles()
 
 
-# @bot.event
-# async def on_message(message):
-#     if message.content.lower() == 'hello':
-#         channel = message.channel
-#         await channel.send("Hello i'm a bot.")
-#     await bot.process_commands(message)
+@bot.event
+async def on_message(message):
+    try:
+        imageURL = message.attachments[0].url
+    except Exception as e:
+        print(e)
+    else:
+        channel = bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL")))
+        author = message.author
+        try:
+            attachmentID = message.attachments[0].id
+        except Exception as e:
+            print(e)
+        else:
+            await channel.send("{} : {} : {}".format(imageURL, author, attachmentID))
+    await bot.process_commands(message)
 
 # @bot.command(name='addrole')
 # async def addrole(ctx):
