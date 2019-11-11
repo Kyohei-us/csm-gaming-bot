@@ -39,7 +39,8 @@ async def role(ctx):
     channel = bot.get_channel(int(os.environ.get("GENERAL_CHANNEL")))#temp channel
 
     for member in guild.members:
-        role_group_games = discord.utils.get(guild.roles, id=643279746360279050)
+        await channel.send('Starting role adjustment for {}'.format(member.name))
+        role_group_games = discord.utils.get(guild.roles, id=622296223772180480)
         for role in member.roles:
             if role != role_group_games:
                 await member.add_roles(role_group_games)
