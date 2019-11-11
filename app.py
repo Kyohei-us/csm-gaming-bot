@@ -33,6 +33,23 @@ async def role(ctx):
             # role_games = 
             # await member.add_roles()
 
+@bot.command(name='roleAdjustment')
+async def role(ctx):
+    guild = ctx.message.guild
+
+    for member in guild.members:
+        for role in member.roles:
+            # role_member = discord.utils.get(guild.roles, id=618656228280762390)
+            # if role == role_member:
+            #     await member.add_roles(role_member)
+            role_group_games = discord.utils.get(guild.roles, id=622296223772180480)
+            if role == role_group_games:
+                await member.add_roles(role_group_games)
+                role_group_gaming_platform = discord.utils.get(guild.roles, id=622300532245266432)
+                if role == role_group_gaming_platform:
+                    await member.add_roles(role_group_gaming_platform)
+                    channel = bot.get_channel(int(os.environ.get("GENERAL_CHANNEL")))
+                    await channel.send("{} finished his/her role adjustment.".format(member.name))
 
 @bot.event
 async def on_message(message):
@@ -61,19 +78,46 @@ async def on_message(message):
 #         print(e)
 #         await ctx.message.channel.send("You failed to add role im sorry.")
 
-# @bot.event
-# async def on_member_join(member):
-#     guild = member.guild
-#     role = discord.utils.get(guild.roles, name="aggin")
-#     try:
-#         await member.add_roles(role)
-#     except Exception as e:
-#         print(e)
-#         channel = bot.get_channel(636689612659490816)
-#         await channel.send("You failed to add role im sorry.")
-#     else:
-#         channel = bot.get_channel(636689612659490816)
-#         await channel.send("You get this role :  aggin")
+@bot.event
+async def on_member_join(member):
+    guild = member.guild
+
+    role_member = discord.utils.get(guild.roles, id=618656228280762390)
+    role_group_games = discord.utils.get(guild.roles, id=622296223772180480)
+    role_group_gaming_platform = discord.utils.get(guild.roles, id=622300532245266432)
+
+    try:
+        await member.add_roles(role_member)
+    except Exception as e:
+        print(e)
+        channel = bot.get_channel(int(os.environ.get("GENERAL_CHANNEL")))
+        await channel.send("{} failed to add role on join. I'm sorry.".format(member.name))
+    else:
+        channel = bot.get_channel(int(os.environ.get("GENERAL_CHANNEL")))
+        await channel.send("{} get this role :  {}".format(member.name, role_member.name))
+        
+        try:
+            await member.add_roles(role_group_games)
+        except Exception as e:
+            print(e)
+            channel = bot.get_channel(int(os.environ.get("GENERAL_CHANNEL")))
+            await channel.send("{} failed to add role on join. I'm sorry.".format(member.name))
+        else:
+            channel = bot.get_channel(int(os.environ.get("GENERAL_CHANNEL")))
+            await channel.send("{} get this role :  {}".format(member.name, role_group_games.name))
+
+            try:
+                await member.add_roles(role_group_gaming_platform)
+            except Exception as e:
+                print(e)
+                channel = bot.get_channel(int(os.environ.get("GENERAL_CHANNEL")))
+                await channel.send("{} failed to add role on join. I'm sorry.".format(member.name))
+            else:
+                channel = bot.get_channel(int(os.environ.get("GENERAL_CHANNEL")))
+                await channel.send("{} get this role :  {}".format(member.name, role_group_gaming_platform.name))
+
+
+
 
 
 @bot.event
