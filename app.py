@@ -36,6 +36,21 @@ async def role(ctx):
 @bot.command(name='roleAdjustment')
 async def role(ctx):
     guild = ctx.message.guild
+    channel = bot.get_channel(int(os.environ.get("GENERAL_CHANNEL")))#temp channel
+
+    for member in guild.members:
+        role_group_games = discord.utils.get(guild.roles, id=643279746360279050)
+        for role in member.roles:
+            if role != role_group_games:
+                await member.add_roles(role_group_games)
+            if role == role_group_games:
+                continue
+            role_group_gaming_platform = discord.utils.get(guild.roles, id=622300532245266432)
+            if role != role_group_gaming_platform:
+                await member.add_roles(role_group_gaming_platform)
+            if role == role_group_gaming_platform:
+                continue
+        await channel.send("{} finished his/her role adjustment.".format(member.name))
 
     for member in guild.members:
         for role in member.roles:
