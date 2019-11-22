@@ -8,12 +8,12 @@ import pytz
 bot = Bot(command_prefix='-')
 
 
-@bot.event
-async def on_ready():
-    print("I'm ready.")
-    #general channel
-    target_channel = bot.get_channel(int(os.environ.get('GENERAL_CHANNEL')))
-    await target_channel.send("I'm online.")
+# @bot.event
+# async def on_ready():
+#     print("I'm ready.")
+#     #general channel
+#     target_channel = bot.get_channel(int(os.environ.get('GENERAL_CHANNEL')))
+#     await target_channel.send("I'm online.")
 
 @bot.command(name='roleShift')
 async def role(ctx):
