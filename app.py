@@ -84,7 +84,7 @@ async def on_message(message):
     #         await channel.send("{} : {} : {}".format(imageURL, author, attachmentID))
 
     
-    if message.channel != bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL"))) or message.channel != bot.get_channel(int(os.environ.get("LOGS_CHANNEL"))):
+    if message.channel != bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL"))) and message.channel != bot.get_channel(int(os.environ.get("LOGS_CHANNEL"))):
         try:
             await message.attachments[0].save("test_file_name")
         except Exception as e:
