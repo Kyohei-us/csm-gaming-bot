@@ -167,16 +167,16 @@ async def on_message_delete(message):
 
     switch = False
 
-    try:
-        imageIdAttached = message.attachments[0].id
-    except Exception as e:
-        print(e)
-    else:
-        imageChannel = bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL")))#image repost channel
-        messages = await imageChannel.history(limit=1000).flatten()
-        for a in messages:
-            if str(imageIdAttached) in a.content:
-                print("This is image id : \n{} and this is a.content : \n{}".format(imageIdAttached, a.content))
+    # try:
+    #     imageIdAttached = message.attachments[0].id
+    # except Exception as e:
+    #     print(e)
+    # else:
+    #     imageChannel = bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL")))#image repost channel
+    #     messages = await imageChannel.history(limit=1000).flatten()
+    #     for a in messages:
+    #         if str(imageIdAttached) in a.content:
+    #             print("This is image id : \n{} and this is a.content : \n{}".format(imageIdAttached, a.content))
                 # try:
                 #     messageSplitBySpaceList = a.content.split(" ")
                 # except Exception as e:
@@ -184,8 +184,8 @@ async def on_message_delete(message):
                 # else:
                 #     print("There will be an url of Image deleted below.")
                 #     embed.set_image(url=messageSplitBySpaceList[0])
-                attached_images = a.attachments[0].url
-                switch = True
+                # attached_images = a.attachments[0].url
+                # switch = True
 
     name_of_channel_message_was_in = message.channel.name
 
@@ -196,13 +196,25 @@ async def on_message_delete(message):
     )
     embed.add_field(name="Time sent", value=timelog, inline=False)
     embed.add_field(name="Channel sent in", value=name_of_channel_message_was_in, inline=False)
-    
-
-    if switch == True:
-        embed.set_image(url=attached_images)
 
 
     await channel.send(embed=embed)
+
+    #lines below take care of image logging
+
+    try:
+        print(len(message.attachments))
+    except Exception as e:
+        print(e)
+    else:
+        for i in range(len(message.attachments)):
+            await message.attachments[i].save("test_file_name_" + str(i))
+            if message.attachments[i].url.endswith(".png"):
+                with open("test_file_name_" + str(i), 'rb') as fp:
+                    await channel.send(file=discord.File(fp, 'new_filename_' + str(i) + '.png'))
+            else:
+                print("this is not .png file and i cant take care of it.")
+
 
 
     #await channel.send("{} : {} : {}".format(timelog, message.author.name, message.content))
