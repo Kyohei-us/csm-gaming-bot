@@ -197,8 +197,8 @@ async def on_message_delete(message):
     embed.add_field(name="Time sent", value=timelog, inline=False)
     embed.add_field(name="Channel sent in", value=name_of_channel_message_was_in, inline=False)
 
-
-    await channel.send(embed=embed)
+    if message.channel.name != channel.name and message.channel.name != bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL"))).name:
+        await channel.send(embed=embed)
 
     #lines below take care of image logging
 
@@ -207,11 +207,13 @@ async def on_message_delete(message):
     except Exception as e:
         print(e)
     else:
-        for i in range(len(message.attachments)):
+        if len(message.attachments) > 0:
+            for i in range(len(message.attachments)):
             await message.attachments[i].save("test_file_name_" + str(i))
             if message.attachments[i].url.endswith(".png"):
                 with open("test_file_name_" + str(i), 'rb') as fp:
-                    await channel.send(file=discord.File(fp, 'new_filename_' + str(i) + '.png'))
+                    if message.channel.name != channel.name and message.channel.name != bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL"))).name:
+                        await channel.send(file=discord.File(fp, 'new_filename_' + str(i) + '.png'))
             else:
                 print("this is not .png file and i cant take care of it.")
 
