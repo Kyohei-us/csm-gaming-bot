@@ -84,21 +84,21 @@ async def on_message(message):
     #         await channel.send("{} : {} : {}".format(imageURL, author, attachmentID))
 
     
-    if message.channel != bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL"))) and message.channel != bot.get_channel(int(os.environ.get("LOGS_CHANNEL"))):
-        try:
-            await message.attachments[0].save("test_file_name")
-        except Exception as e:
-            print(e)
-        else:
-            channel = bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL")))
-            author = message.author
-            try:
-                attachmentID = message.attachments[0].id
-            except Exception as e:
-                print(e)
-            else:
-                with open("test_file_name", 'rb') as fp:
-                    await channel.send("{} : {}".format(author, attachmentID),file=discord.File(fp, 'logged_filename.png'))
+    # if message.channel != bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL"))) and message.channel != bot.get_channel(int(os.environ.get("LOGS_CHANNEL"))):
+    #     try:
+    #         await message.attachments[0].save("test_file_name")
+    #     except Exception as e:
+    #         print(e)
+    #     else:
+    #         channel = bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL")))
+    #         author = message.author
+    #         try:
+    #             attachmentID = message.attachments[0].id
+    #         except Exception as e:
+    #             print(e)
+    #         else:
+    #             with open("test_file_name", 'rb') as fp:
+    #                 await channel.send("{} : {}".format(author, attachmentID),file=discord.File(fp, 'logged_filename.png'))
 
     await bot.process_commands(message)
 
@@ -203,20 +203,13 @@ async def on_message_delete(message):
     #lines below take care of image logging
 
     try:
-        print(len(message.attachments))
+        await message.attachments[0].save("test_file_name")
     except Exception as e:
         print(e)
     else:
-        if len(message.attachments) > 0:
-            for i in range(len(message.attachments)):
-            await message.attachments[i].save("test_file_name_" + str(i))
-            if message.attachments[i].url.endswith(".png"):
-                with open("test_file_name_" + str(i), 'rb') as fp:
-                    if message.channel.name != channel.name and message.channel.name != bot.get_channel(int(os.environ.get("IMAGE_REPOST_CHANNEL"))).name:
-                        await channel.send(file=discord.File(fp, 'new_filename_' + str(i) + '.png'))
-            else:
-                print("this is not .png file and i cant take care of it.")
-
+        author = message.author
+        with open("test_file_name", 'rb') as fp:
+            await log_channel.send("{}".format(author),file=discord.File(fp, 'new_filename.png'))
 
 
     #await channel.send("{} : {} : {}".format(timelog, message.author.name, message.content))
